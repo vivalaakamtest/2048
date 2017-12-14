@@ -126,6 +126,19 @@ GameManager.prototype.moveTile = function (tile, cell) {
   tile.updatePosition(cell);
 };
 
+GameManager.prototype.log = function (direction) {
+ var log = this.grid.cells.map( row => {
+	  return row.map((cell) => {
+      if(cell === null) {
+        return 0
+      }
+      return cell.value
+	  })
+  })
+ 
+ console.log( JSON.stringify(log) , direction )
+}
+
 // Move tiles on the grid in the specified direction
 GameManager.prototype.move = function (direction) {
   // 0: up, 1: right, 2: down, 3: left
@@ -134,7 +147,7 @@ GameManager.prototype.move = function (direction) {
   if (this.isGameTerminated()) return; // Don't do anything if the game's over
 
   var cell, tile;
-console.log(this.grid , direction)
+  this.log(direction)
   var vector     = this.getVector(direction);
   var traversals = this.buildTraversals(vector);
   var moved      = false;
